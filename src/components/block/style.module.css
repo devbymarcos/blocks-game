@@ -1,0 +1,5 @@
+.block {
+  width: calc(900px / 10);
+  height: 1rem;
+  background-color: #000;
+}
