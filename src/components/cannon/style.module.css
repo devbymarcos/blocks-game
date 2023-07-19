@@ -1,17 +1,18 @@
 .cannon {
   width: 3rem;
   height: 2rem;
-  background: #000;
+  background: #e7eb00;
   position: absolute;
   bottom: 10px;
-  left: 50%;
+  transition: all 0.1s linear;
+  border: 1px solid blue;
 }
 
 .cannon::before {
   content: "";
   width: 10px;
   height: 2rem;
-  background-color: #dd0000;
+  background-color: #b1fd00;
   display: block;
   top: -10px;
   left: 50%;

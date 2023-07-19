@@ -4,12 +4,14 @@
   margin: 0 auto;
   border: 1.5rem solid #000;
   position: relative;
+  cursor: url("/images/mira.png") 45 45, auto;
 }
 .areaGame {
   width: 100%;
   height: auto;
   padding: 0.5rem;
   display: grid;
-
   grid-template-columns: repeat(8, 1fr);
+
+  overflow: hidden;
 }

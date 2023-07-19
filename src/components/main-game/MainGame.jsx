@@ -5,14 +5,14 @@ import { useEffect, useState, useRef } from "react";
 
 function MainGame() {
   const [block, setBlock] = useState([
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
-    { color: "#000" },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
+    { color: "#000", x: 100, y: 100 },
   ]);
   const [click, setClick] = useState(1);
   const [item, setItem] = useState(0);
@@ -31,14 +31,14 @@ function MainGame() {
       setBlock((block) => {
         const arr = [...block];
         arr.unshift(
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" },
-          { color: "#000" }
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 },
+          { color: "#000", x: 100, y: 100 }
         );
         return arr;
       });
@@ -51,9 +51,8 @@ function MainGame() {
   function handleClick(e) {
     const id = e.currentTarget.id;
     const changeBlock = [...block];
-    changeBlock[id].color = "red";
+    changeBlock[id].color = "green";
     setBlock(changeBlock);
-    //console.log(id);
   }
 
   useEffect(() => {
