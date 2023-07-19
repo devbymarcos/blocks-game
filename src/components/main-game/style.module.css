@@ -9,9 +9,7 @@
   width: 100%;
   height: auto;
   padding: 0.5rem;
-  display: flex;
-  gap: 1rem;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  position: relative;
+  display: grid;
+  /* gap: 1rem; */
+  grid-template-columns: repeat(8, 1fr);
 }

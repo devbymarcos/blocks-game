@@ -12,6 +12,8 @@ function MainGame() {
   const areaHeight = useRef();
   const mainHeight = useRef();
 
+  const velocity = 2000;
+
   function setBlock() {
     const area = areaHeight.current.getBoundingClientRect().bottom;
     const main = mainHeight.current.getBoundingClientRect().bottom;
@@ -19,7 +21,7 @@ function MainGame() {
     if (area + 50 < main) {
       setBlockRepeat((blockRepeat) => {
         const arr = [...blockRepeat];
-        arr.unshift(item);
+        arr.unshift(item, item, item, item, item, item, item, item);
         return arr;
       });
       setItem((item) => {
@@ -30,50 +32,47 @@ function MainGame() {
 
   function handleClick(e) {
     const id = e.currentTarget.id;
-    console.log(id);
     setArrDrop((arrDrop) => {
       const arr = [...arrDrop];
       arr.push(id);
       return arr;
     });
-    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.backgroundColor = "green";
     setClick((click) => {
       return click + 1;
     });
   }
 
-  function update() {
-    if (click >= 8) {
-      const arr = [...blockRepeat];
-      console.log(arrDrop);
-      arrDrop.forEach((item) => {
-        //arr.splice(item, 1);
-        document.getElementById(item).style.display = "none";
-      });
-      setArrDrop([]);
-      setBlockRepeat(arr);
-      setClick(1);
-    }
-  }
+  // function dropBlock() {
+  //   if (click >= 8) {
+  //     const arr = [...blockRepeat];
+  //     arrDrop.forEach((item) => {
+  //       document.getElementById(item).style.display = "none";
+  //     });
+  //     setArrDrop([]);
+  //     setBlockRepeat(arr);
+  //     setClick(1);
+  //   }
+  // }
 
-  useEffect(() => {
-    update();
-  }, [arrDrop]);
+  // useEffect(() => {
+  //   dropBlock();
+  // }, [arrDrop]);
 
   useEffect(() => {
     const time = setTimeout(() => {
       setBlock();
-    }, 3000);
+    }, velocity);
     return () => clearTimeout(time);
   }, [blockRepeat]);
 
   return (
     <div ref={mainHeight} className={style.mainGame}>
       <div ref={areaHeight} className={style.areaGame}>
-        {blockRepeat.map((bl, index) => {
+        {blockRepeat.map((number, index) => {
           return (
             <Block id={index} onClick={handleClick} key={index}>
-              {""}
+              {number}
             </Block>
           );
         })}
