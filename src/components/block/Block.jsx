@@ -1,12 +1,15 @@
-import React from "react";
+import { useState } from "react";
 import style from "./style.module.css";
 
-const Block = ({ onClick, id, children }) => {
-  const [click, setClick] = useState(1);
-
+const Block = ({ id, children, color, onClick }) => {
   return (
-    <div id={id} onClick={onClick} className={style.block}>
-      {children}
+    <div
+      id={id}
+      style={{ backgroundColor: color }}
+      onClick={onClick}
+      className={style.block}
+    >
+      {color}
     </div>
   );
 };

@@ -4,9 +4,18 @@ import style from "./style.module.css";
 import { useEffect, useState, useRef } from "react";
 
 function MainGame() {
-  const [blockRepeat, setBlockRepeat] = useState([]);
-  const [item, setItem] = useState(0);
+  const [block, setBlock] = useState([
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+    { color: "#000" },
+  ]);
   const [click, setClick] = useState(1);
+  const [item, setItem] = useState(0);
   const [arrDrop, setArrDrop] = useState([]);
 
   const areaHeight = useRef();
@@ -14,14 +23,23 @@ function MainGame() {
 
   const velocity = 2000;
 
-  function setBlock() {
+  function createBlock() {
     const area = areaHeight.current.getBoundingClientRect().bottom;
     const main = mainHeight.current.getBoundingClientRect().bottom;
 
     if (area + 50 < main) {
-      setBlockRepeat((blockRepeat) => {
-        const arr = [...blockRepeat];
-        arr.unshift(item, item, item, item, item, item, item, item);
+      setBlock((block) => {
+        const arr = [...block];
+        arr.unshift(
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" },
+          { color: "#000" }
+        );
         return arr;
       });
       setItem((item) => {
@@ -32,48 +50,30 @@ function MainGame() {
 
   function handleClick(e) {
     const id = e.currentTarget.id;
-    setArrDrop((arrDrop) => {
-      const arr = [...arrDrop];
-      arr.push(id);
-      return arr;
-    });
-    e.currentTarget.style.backgroundColor = "green";
-    setClick((click) => {
-      return click + 1;
-    });
+    const changeBlock = [...block];
+    changeBlock[id].color = "red";
+    setBlock(changeBlock);
+    //console.log(id);
   }
-
-  // function dropBlock() {
-  //   if (click >= 8) {
-  //     const arr = [...blockRepeat];
-  //     arrDrop.forEach((item) => {
-  //       document.getElementById(item).style.display = "none";
-  //     });
-  //     setArrDrop([]);
-  //     setBlockRepeat(arr);
-  //     setClick(1);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   dropBlock();
-  // }, [arrDrop]);
 
   useEffect(() => {
     const time = setTimeout(() => {
-      setBlock();
+      createBlock();
     }, velocity);
     return () => clearTimeout(time);
-  }, [blockRepeat]);
+  }, [block]);
 
   return (
     <div ref={mainHeight} className={style.mainGame}>
       <div ref={areaHeight} className={style.areaGame}>
-        {blockRepeat.map((number, index) => {
+        {block.map((item, index) => {
           return (
-            <Block id={index} onClick={handleClick} key={index}>
-              {number}
-            </Block>
+            <Block
+              onClick={handleClick}
+              id={index}
+              color={item.color}
+              key={index}
+            ></Block>
           );
         })}
       </div>
