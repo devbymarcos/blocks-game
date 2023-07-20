@@ -4,30 +4,31 @@ import { useEffect, useRef, useState } from "react";
 function Cannon() {
   const tankRef = useRef();
   const cannonRef = useRef();
-  const [x, setX] = useState(10);
+  const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [angle, setAngle] = useState(0);
 
-  //move o tanque com o teclado
+  const velocity = 10; //move o tanque com o teclado
   function moveTank(e) {
+    console.log(e);
     if (e.keyCode === 68) {
-      setX((x) => {
-        return x + 10;
+      setX((y) => {
+        return y + velocity;
       });
     }
     if (e.keyCode === 65) {
-      setX((x) => {
-        return x - 10;
+      setX((y) => {
+        return y - velocity;
       });
     }
     if (e.keyCode === 87) {
       setY((y) => {
-        return y + 10;
+        return y - velocity;
       });
     }
     if (e.keyCode === 83) {
       setY((y) => {
-        return y - 10;
+        return y + velocity;
       });
     }
   }
@@ -64,8 +65,7 @@ function Cannon() {
     <div
       ref={tankRef}
       style={{
-        left: x,
-        bottom: y,
+        transform: `translate(${x}px, ${y}px)`,
       }}
       className={style.tank}
     >
