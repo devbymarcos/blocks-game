@@ -8,9 +8,7 @@ const Block = ({ id, children, color, onClick }) => {
       style={{ backgroundColor: color }}
       onClick={onClick}
       className={style.block}
-    >
-      {color}
-    </div>
+    ></div>
   );
 };
 
