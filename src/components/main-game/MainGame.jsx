@@ -21,7 +21,7 @@ function MainGame() {
   const areaHeight = useRef();
   const mainHeight = useRef();
 
-  const velocity = 2000;
+  const velocity = 1000;
 
   function createBlock() {
     const area = areaHeight.current.getBoundingClientRect().bottom;

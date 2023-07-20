@@ -3,10 +3,13 @@ import { useEffect, useRef, useState } from "react";
 
 function Cannon() {
   const tankRef = useRef();
+  const cannonRef = useRef();
   const [x, setX] = useState(10);
   const [y, setY] = useState(0);
+  const [angle, setAngle] = useState(0);
 
-  function key(e) {
+  //move o tanque com o teclado
+  function moveTank(e) {
     if (e.keyCode === 68) {
       setX((x) => {
         return x + 10;
@@ -29,11 +32,31 @@ function Cannon() {
     }
   }
 
+  function moveCannon(e) {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const elemRec = cannonRef.current.getBoundingClientRect();
+    const elem = cannonRef.current;
+
+    const elementoX = elemRec.left + elemRec.width / 2;
+    const elementoY = elemRec.top + elemRec.height / 2;
+
+    const deltaX = mouseX - elementoX;
+    const deltaY = mouseY - elementoY;
+
+    const angleRadians = Math.atan2(deltaX, deltaY);
+    const angleInDegrees = (angleRadians * 180) / Math.PI;
+
+    elem.style.transform = `rotate(-${angleInDegrees + 180}deg)`;
+  }
+
   useEffect(() => {
-    document.addEventListener("keydown", key);
+    document.addEventListener("keydown", moveTank);
+    document.addEventListener("mousemove", moveCannon);
 
     return () => {
-      document.removeEventListener("keydown", key);
+      document.removeEventListener("keydown", moveTank);
+      document.removeEventListener("mousemove", moveCannon);
     };
   }, [x, y]);
 
@@ -44,8 +67,10 @@ function Cannon() {
         left: x,
         bottom: y,
       }}
-      className={style.cannon}
-    ></div>
+      className={style.tank}
+    >
+      <span ref={cannonRef} className={style.cannon}></span>
+    </div>
   );
 }
 
