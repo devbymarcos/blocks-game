@@ -56,11 +56,11 @@ function MainGame() {
   }
 
   useEffect(() => {
-    const time = setTimeout(() => {
+    const time = setInterval(() => {
       createBlock();
     }, velocity);
-    return () => clearTimeout(time);
-  }, [block]);
+    return () => clearInterval(time);
+  }, []);
 
   return (
     <div ref={mainHeight} className={style.mainGame}>
