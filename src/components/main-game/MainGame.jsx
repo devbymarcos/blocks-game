@@ -21,7 +21,7 @@ function MainGame() {
   const areaHeight = useRef();
   const mainHeight = useRef();
 
-  const velocity = 1000;
+  const velocity = 100;
 
   function createBlock() {
     const area = areaHeight.current.getBoundingClientRect().bottom;
@@ -42,25 +42,27 @@ function MainGame() {
         );
         return arr;
       });
-      setItem((item) => {
-        return item + 1;
-      });
     }
   }
 
   function handleClick(e) {
     const id = e.currentTarget.id;
     const changeBlock = [...block];
-    changeBlock[id].color = "green";
+    changeBlock[id].color = "transparent";
+    const destroyer = [...arrDrop];
+    destroyer.push(id);
+    setArrDrop(destroyer);
     setBlock(changeBlock);
+    setClick((clk) => clk + 1);
   }
 
   useEffect(() => {
-    const time = setInterval(() => {
+    const time = setTimeout(() => {
       createBlock();
     }, velocity);
-    return () => clearInterval(time);
-  }, []);
+
+    return () => clearTimeout(time);
+  }, [block]);
 
   return (
     <div ref={mainHeight} className={style.mainGame}>
@@ -72,7 +74,9 @@ function MainGame() {
               id={index}
               color={item.color}
               key={index}
-            ></Block>
+            >
+              {index}
+            </Block>
           );
         })}
       </div>
